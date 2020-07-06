@@ -7,4 +7,19 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+
+    <style name="buttonStyle">
+
+        <item name="android:layout_margin">@dimen/buttonMargin</item>
+        <item name="android:textSize">@dimen/buttonTextSize</item>
+        <item name="android:padding">@dimen/buttonPadding</item>
+        <item name="android:background">@color/pineappleYellow</item>
+        <item name="android:radius">6dp</item>
+    </style>
+
+    <style name="timeDisplay">
+
+        <item name="android:textSize">25sp</item>
+
+    </style>
 </resources>
