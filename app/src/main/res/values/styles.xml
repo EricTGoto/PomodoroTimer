@@ -19,7 +19,7 @@
 
     <style name="timeDisplay">
 
-        <item name="android:textSize">25sp</item>
+        <item name="android:textSize">40sp</item>
 
     </style>
 </resources>

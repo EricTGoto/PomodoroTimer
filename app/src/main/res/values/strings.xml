@@ -8,4 +8,8 @@
     <string name="custom">Custom</string>
     <string name="picture_of_fruit">picture of fruit</string>
     <string name="pause">Pause</string>
+    <string name="aboutPomodoro">The Pomodoro technique is a time management method which uses
+                                a timer to break work down into intervals. The work intervals are 25 minutes and are separated by short breaks.
+                                After 4 work intervals you take a long break of 15 minutes and then repeat the process. \n Source: Wikipedia</string>
+    <string name="about">About</string>
 </resources>

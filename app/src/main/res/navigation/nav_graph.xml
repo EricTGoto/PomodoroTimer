@@ -15,6 +15,10 @@
             android:id="@+id/action_mainScreenFragment_to_timerFragment"
             app:destination="@id/timerFragment"
             app:popUpTo="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment"
+            app:popUpTo="@id/mainScreenFragment" />
     </fragment>
 
     <fragment
@@ -22,4 +26,9 @@
         android:name="com.example.pomodorotimer.timer.timerFragment"
         android:label="fragment_timer"
         tools:layout="@layout/fragment_timer" />
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="com.example.pomodorotimer.about.AboutFragment"
+        android:label="fragment_about"
+        tools:layout="@layout/fragment_about" />
 </navigation>
