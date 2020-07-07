@@ -62,7 +62,7 @@ class timerFragment : Fragment() {
                     .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
                     .build()
             soundPool =
-                SoundPool.Builder().setMaxStreams(2).setAudioAttributes(audioAttributes).build()
+                SoundPool.Builder().setMaxStreams(1).setAudioAttributes(audioAttributes).build()
         } else soundPool = SoundPool(1, AudioManager.STREAM_MUSIC, 0))
 
         val viewModelFactory = TimerViewModelFactory(soundPool, application)
