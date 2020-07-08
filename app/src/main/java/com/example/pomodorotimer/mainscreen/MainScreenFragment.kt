@@ -8,6 +8,8 @@ import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.fragment.findNavController
@@ -47,12 +49,38 @@ class MainScreenFragment : Fragment() {
 
         val binding: FragmentMainScreenBinding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_main_screen, container, false)
-        binding.startButton.setOnClickListener {
-            findNavController().navigate(
-                MainScreenFragmentDirections.actionMainScreenFragmentToTimerFragment()
-            )
-        }
+
         setHasOptionsMenu(true)
+        val viewModelFactory = MainScreenViewModelFactory()
+        val mainScreenViewModel =
+            ViewModelProvider(this, viewModelFactory).get(MainScreenViewModel::class.java)
+        binding.lifecycleOwner = this
+        binding.mainScreenViewModel = mainScreenViewModel
+
+        mainScreenViewModel.navigateToTimer.observe(
+            viewLifecycleOwner,
+            Observer<Boolean> { toTimer ->
+                if (toTimer) {
+                    this.findNavController()
+                        .navigate(MainScreenFragmentDirections.actionMainScreenFragmentToTimerFragment())
+                    mainScreenViewModel.wentToTimer()
+                }
+            })
+
+        mainScreenViewModel.navigateToAbout.observe(viewLifecycleOwner, Observer {
+            toAbout->
+            if(toAbout){
+                this.findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToAboutFragment())
+                mainScreenViewModel.wentToAbout()
+            }
+        })
+
+        mainScreenViewModel.navigateToSettings.observe(viewLifecycleOwner, Observer { toSettings->
+            if (toSettings){
+                this.findNavController().navigate(MainScreenFragmentDirections.actionMainScreenFragmentToSettingsFragment())
+                mainScreenViewModel.wentToSettings()
+            }
+        })
         return binding.root
     }
 
