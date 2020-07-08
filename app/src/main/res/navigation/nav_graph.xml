@@ -19,6 +19,10 @@
             android:id="@+id/action_mainScreenFragment_to_aboutFragment"
             app:destination="@id/aboutFragment"
             app:popUpTo="@id/mainScreenFragment" />
+        <action
+            android:id="@+id/action_mainScreenFragment_to_settingsFragment"
+            app:destination="@id/settingsFragment"
+            app:popUpTo="@id/mainScreenFragment" />
     </fragment>
 
     <fragment
@@ -31,4 +35,8 @@
         android:name="com.example.pomodorotimer.about.AboutFragment"
         android:label="fragment_about"
         tools:layout="@layout/fragment_about" />
+    <fragment
+        android:id="@+id/settingsFragment"
+        android:name="com.example.pomodorotimer.settings.SettingsFragment"
+        android:label="SettingsFragment" />
 </navigation>

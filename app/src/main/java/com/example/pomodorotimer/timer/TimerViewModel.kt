@@ -51,6 +51,9 @@ class TimerViewModel(soundPool: SoundPool, application: Application) :
     private var viewModelJob = Job()
     private val uiScope = CoroutineScope(Dispatchers.Main + viewModelJob)
 
+
+    var soundID: Int=0
+
     companion object {
         private const val DONE = 0L
 
@@ -67,15 +70,19 @@ class TimerViewModel(soundPool: SoundPool, application: Application) :
         _isPaused.value = false
         _resumeButtonVisibility.value = visibilityGone
 
+        viewModelScope.launch{
+           soundID= soundPool.load(application, R.raw.alarmshort, 0)
+        }
         timer = object : CountDownTimer(POMO_TIME, ONE_SECOND) {
             override fun onTick(millisUntilFinished: Long) {
                 _current_time.value = millisUntilFinished / ONE_SECOND
             }
 
             override fun onFinish() {
+                //soundPool.play(soundID, 1f, 1f, 1, 0, 1f)
                 uiScope.launch {
                     withContext(Dispatchers.IO) {
-                        playSound(soundPool, application)
+                        soundPool.play(soundID, 1f, 1f, 1, 0, 1f)
                     }
                 }
                 pomoCount++
