@@ -8,6 +8,20 @@
     </style>
 
 
+    <style name="titleStyle">
+
+        <item name="android:textSize">30sp</item>
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:textStyle">bold</item>
+
+    </style>
+
+    <style name="secondaryText">
+
+        <item name="android:textSize">20sp</item>
+        <item name="android:layout_margin">6dp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
     <style name="buttonStyle">
 
         <item name="android:layout_margin">@dimen/buttonMargin</item>
