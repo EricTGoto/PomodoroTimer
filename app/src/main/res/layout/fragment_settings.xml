@@ -52,13 +52,14 @@
                 android:id="@+id/rb_pineapple"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/pineapple" />
+                android:text="@string/pineapple"
+                android:checked="true"/>
 
             <RadioButton
-                android:id="@+id/rb_blueberry"
+                android:id="@+id/rb_avocado"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/blueberry" />
+                android:text="@string/avocado" />
 
             <RadioButton
                 android:id="@+id/rb_dragonfruit"

@@ -79,12 +79,11 @@ class SettingsFragment : Fragment() {
                 putInt("themeId", id)
                 apply()
             }
-
         }
 
         editor.apply {
             putInt("pineappleId", binding.rbPineapple.id)
-            putInt("blueberryId", binding.rbBlueberry.id)
+            putInt("avocadoId", binding.rbAvocado.id)
             putInt("dragonfruitId", binding.rbDragonfruit.id)
             apply()
         }
