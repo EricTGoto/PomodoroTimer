@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModel
 
 class MainScreenViewModel : ViewModel() {
 
-
     private val _navigateToTimer = MutableLiveData<Boolean>()
     val navigateToTimer: LiveData<Boolean>
         get() = _navigateToTimer
@@ -43,4 +42,5 @@ class MainScreenViewModel : ViewModel() {
     fun wentToSettings() {
         _navigateToSettings.value = false
     }
+
 }

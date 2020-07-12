@@ -65,21 +65,47 @@ class SettingsFragment : Fragment() {
         binding.settingsViewModel = viewModel
         binding.lifecycleOwner = viewLifecycleOwner
 
+        // Code for setting persistence
         val pineAppleId = binding.rbPineapple.id
-        viewModel.setPineAppleId(binding.rbPineapple.id)
-        viewModel.setBlueberryId(binding.rbBlueberry.id)
 
-        val themeId=sharedPref.getInt("themeId", 0)
+        val editor = sharedPref.edit()
+
+        // Sets fruitSelected variable to the newly checked radiobutton's ID
+        // Since the activity that we go back to has their lifecycle methods called first,
+        // instead of updating the shared preferences in onStop I put it in this
+
+        binding.rgTheme.setOnCheckedChangeListener { radioGroup, id ->
+            editor.apply() {
+                putInt("themeId", id)
+                apply()
+            }
+
+        }
+
+        editor.apply {
+            putInt("pineappleId", binding.rbPineapple.id)
+            putInt("blueberryId", binding.rbBlueberry.id)
+            putInt("dragonfruitId", binding.rbDragonfruit.id)
+            apply()
+        }
+
+        val themeId = sharedPref.getInt("themeId", 0)
         binding.rgTheme.check(sharedPref.getInt("themeId", pineAppleId))
-        Log.i("pomo","$pineAppleId" )
+        Log.i("pomo", "$pineAppleId")
         return binding.root
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.i("pomo", "on pause settings")
     }
 
     override fun onStop() {
         super.onStop()
-        viewModel.saveSettings(rgTheme.checkedRadioButtonId)
+        viewModel.saveSettings()
         Log.i("pomo", "on stop")
     }
+
 
     companion object {
         /**

@@ -44,9 +44,10 @@ class SettingsViewModel(application: Application) : ViewModel() {
         _blueberryId.value = Id
     }
 
-    fun saveSettings(Id: Int) {
+    fun saveSettings() {
+        Log.i("pomo", "settings saved")
         editor.apply {
-            putInt("themeId", Id)
+            putInt("themeId", _fruitSelected.value?:sharedPref.getInt("themeId",0))
             apply()
         }
     }
