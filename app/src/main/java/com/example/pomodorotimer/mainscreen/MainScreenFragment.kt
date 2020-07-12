@@ -73,8 +73,10 @@ class MainScreenFragment : Fragment() {
         val themeId = sharedPref.getInt("themeId", 0)
         Log.i("pomo", "themeId main screen $themeId")
         if (themeId == sharedPref.getInt("blueberryId", 0)) {
-            binding.ivFruit.setImageResource(R.mipmap.ic_blueberry)
-        } else {
+            binding.ivFruit.setImageResource(R.drawable.ic_avocado)
+        } else if (themeId==sharedPref.getInt("dragonfruitId",0)){
+            binding.ivFruit.setImageResource(R.drawable.ic_dragon_fruit)
+        }else{
             binding.ivFruit.setImageResource(R.drawable.ic_pineapple)
         }
 
