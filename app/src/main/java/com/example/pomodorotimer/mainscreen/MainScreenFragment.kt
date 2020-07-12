@@ -1,6 +1,8 @@
 package com.example.pomodorotimer.mainscreen
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.SharedPreferences
 import android.media.AudioAttributes
 import android.media.AudioManager
 import android.media.SoundPool
@@ -38,7 +40,8 @@ class MainScreenFragment : Fragment() {
     private var param1: String? = null
     private var param2: String? = null
 
-
+    private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var binding: FragmentMainScreenBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -52,8 +55,8 @@ class MainScreenFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        Log.i("pomo","oncreate view called")
-        val binding: FragmentMainScreenBinding =
+        Log.i("pomo", "oncreate view called")
+        binding =
             DataBindingUtil.inflate(inflater, R.layout.fragment_main_screen, container, false)
 
         val application = requireNotNull(this.activity).application
@@ -68,18 +71,8 @@ class MainScreenFragment : Fragment() {
         binding.lifecycleOwner = this
         binding.mainScreenViewModel = mainScreenViewModel
 
-        val sharedPref = application.getSharedPreferences("savedSettings", Context.MODE_PRIVATE)
-
-        val themeId = sharedPref.getInt("themeId", 0)
-        Log.i("pomo", "themeId main screen $themeId")
-        if (themeId == sharedPref.getInt("blueberryId", 0)) {
-            binding.ivFruit.setImageResource(R.drawable.ic_avocado)
-        } else if (themeId==sharedPref.getInt("dragonfruitId",0)){
-            binding.ivFruit.setImageResource(R.drawable.ic_dragon_fruit)
-        }else{
-            binding.ivFruit.setImageResource(R.drawable.ic_pineapple)
-        }
-
+        sharedPreferences = application.getSharedPreferences("savedSettings", Context.MODE_PRIVATE)
+        changeToSelectedTheme()
 
         mainScreenViewModel.navigateToTimer.observe(
             viewLifecycleOwner,
@@ -111,10 +104,12 @@ class MainScreenFragment : Fragment() {
 
         return binding.root
     }
+
     override fun onPause() {
         super.onPause()
-        Log.i("pomo","onpause called")
+        Log.i("pomo", "onpause called")
     }
+
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater?.inflate(R.menu.options_menu, menu)
@@ -125,6 +120,36 @@ class MainScreenFragment : Fragment() {
             item!!,
             requireView().findNavController()
         ) || super.onOptionsItemSelected(item)
+    }
+
+    private fun changeToSelectedTheme() {
+        val themeId = sharedPreferences.getInt("themeId", 0)
+
+        when (themeId) {
+            sharedPreferences.getInt("blueberryId", 0) -> {
+                changeToAvocadoTheme()
+            }
+            sharedPreferences.getInt("dragonfruitId", 0) -> {
+                changeToDragonfruitTheme()
+            }
+            else -> {
+                binding.ivFruit.setImageResource(R.drawable.ic_pineapple)
+            }
+        }
+    }
+
+    private fun changeToAvocadoTheme() {
+        binding.ivFruit.setImageResource(R.drawable.ic_avocado)
+        binding.startButton.setBackgroundResource(R.color.avocadoGreen)
+        binding.aboutButton.setBackgroundResource(R.color.avocadoGreen)
+        binding.settingsButton.setBackgroundResource(R.color.avocadoGreen)
+    }
+
+    private fun changeToDragonfruitTheme() {
+        binding.ivFruit.setImageResource(R.drawable.ic_dragon_fruit)
+        binding.startButton.setBackgroundResource(R.color.dragonfruitPink)
+        binding.aboutButton.setBackgroundResource(R.color.dragonfruitPink)
+        binding.settingsButton.setBackgroundResource(R.color.dragonfruitPink)
     }
 
     companion object {
